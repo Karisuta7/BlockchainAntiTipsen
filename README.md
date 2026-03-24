@@ -6,12 +6,11 @@ NETWORKING & TESTING: Aisyah Rahmasari 50272310
 
 **Cara Run:**
 
-1- Jalankan ``python app.py``
-2- Di Postman, buka tab POST /transactions/new. Masukkan nama baru. Klik Send.
-3- Lihat pesannya: "Absen (nama) masuk antrian Blok (nomer antrian)".
-4- Buka tab GET /mine. Klik Send.
-5- Lihat Hasilnya: Di hasil Blok (nomer antrian) ini, daftar transactions pasti akan berisi DUA data:
-Data (nama) dan Data SYSTEM_REWARD.
+1. Jalankan ``python app.py``
+2. Di Postman, buka tab `POST /transactions/new`. Masukkan nama baru. Klik Send.
+3. Lihat pesannya: "Absen (nama) masuk antrian Blok (nomer antrian)".
+4. Buka tab `GET /mine.` Klik Send.
+5. Lihat Hasilnya: Di hasil Blok (nomer antrian) ini, daftar transactions pasti akan berisi **DUA data: Data (nama) dan Data SYSTEM_REWARD.**
 
 **Dokumentasi:**
 
@@ -30,7 +29,8 @@ Hasil `GET /mine` kedua (belum ada security, menambah 1 orang-Tywin Lannister)
 <img width="701" height="462" alt="image" src="https://github.com/user-attachments/assets/189dc5cf-fafe-462f-bf38-b6028ec623ef" />
 
 Hasil `GET /chain` kedua (belum ada security, menambah 1 orang-Tywin Lannister)
-<img width="652" height="293" alt="image" src="https://github.com/user-attachments/assets/7c3231e6-1616-4900-9d49-0bfd1a3c1aa6" />
+<img width="701" height="532" alt="image" src="https://github.com/user-attachments/assets/326edf55-0166-41f6-a431-93f19bfdbafd" />
+
 
 
 
