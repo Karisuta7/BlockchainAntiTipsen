@@ -6,20 +6,21 @@ NETWORKING & TESTING: Aisyah Rahmasari 50272310
 
 **Cara Run:**
 
-jalankan `python app.py`
+jalankan ``python app.py``
 
 **Dokumentasi:**
 Hasil `GET /chain` pertama (belum ada security)
-<img width="951" height="1060" alt="image" src="https://github.com/user-attachments/assets/b6ebdba0-4f06-47f3-b26d-310d7357a709" />
+<img width="698" height="359" alt="image" src="https://github.com/user-attachments/assets/d1e18281-9544-4192-9597-f97c97c2604c" />
 
 Hasil `GET /mine` pertama (belum ada security)
-<img width="960" height="1069" alt="image" src="https://github.com/user-attachments/assets/5cf7df3c-2972-47a9-8584-a488fded50e5" />
+<img width="698" height="406" alt="image" src="https://github.com/user-attachments/assets/fe966200-163a-40c5-9f74-fd4f33fa70eb" />
 
 Hasil `POST /transactions/new` (absensi baru) pertama (belum ada security)
-<img width="952" height="1123" alt="image" src="https://github.com/user-attachments/assets/a0513bc0-0da5-432b-a8f9-cd28d1e26e5f" />
+<img width="701" height="518" alt="image" src="https://github.com/user-attachments/assets/2d48fada-0a62-40af-bd56-1d94b9c977c9" />
 
 Hasil `GET /chain` kedua (belum ada security, menambah 1 orang)
-<img width="964" height="958" alt="image" src="https://github.com/user-attachments/assets/9c745924-509e-466a-8d90-f306b6899a01" />
+<img width="701" height="455" alt="image" src="https://github.com/user-attachments/assets/2754452c-b20a-4163-9b51-97b2e0a0d719" />
 
 Hasil `GET /mine` kedua (belum ada security, menambah 1 orang)
-<img width="958" height="1009" alt="image" src="https://github.com/user-attachments/assets/998b88fe-b996-43ed-873c-4288d6f462ed" />
+<img width="701" height="462" alt="image" src="https://github.com/user-attachments/assets/189dc5cf-fafe-462f-bf38-b6028ec623ef" />
+
