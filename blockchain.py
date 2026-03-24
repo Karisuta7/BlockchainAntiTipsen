@@ -6,7 +6,7 @@ class Blockchain:
     def __init__(self):
         self.chain = []
         self.current_transactions = []
-        self.new_block(previous_hash='1', proof=100) # Genesis Block
+        self.new_block(previous_hash='1', proof=100) 
 
     def new_block(self, proof, previous_hash=None):
         block = {
@@ -17,15 +17,17 @@ class Blockchain:
             'previous_hash': previous_hash or self.hash(self.chain[-1]),
         }
         self.current_transactions = []
+      
         block['hash'] = self.hash(block)
         self.chain.append(block)
         return block
 
-    def new_transaction(self, nama_mahasiswa, keterangan):
-        # Backend cuma perlu terima data mentah
+    def new_transaction(self, nama, keterangan, signature="NONE"):
+     
         self.current_transactions.append({
-            'mahasiswa': nama_mahasiswa,
-            'status': keterangan, # Misal: "Hadir tepat waktu"
+            'mahasiswa': nama,
+            'status': keterangan,
+            'signature': signature, 
             'timestamp': time()
         })
         return self.last_block['index'] + 1
@@ -36,7 +38,10 @@ class Blockchain:
 
     @staticmethod
     def hash(block):
-        block_string = json.dumps(block, sort_keys=True).encode()
+        
+        block_copy = block.copy()
+        block_copy.pop('hash', None)
+        block_string = json.dumps(block_copy, sort_keys=True).encode()
         return hashlib.sha256(block_string).hexdigest()
 
     def proof_of_work(self, last_proof):
