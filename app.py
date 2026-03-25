@@ -1,56 +1,65 @@
 from flask import Flask, jsonify, request
 from blockchain import Blockchain
+from signature import verify_signature 
 
 app = Flask(__name__)
 blockchain = Blockchain()
 
 MINER_ID = "Admin_Kampus_01"
 
-@app.route('/', methods=['GET'])
-def home():
-    return jsonify({
-        'message': 'API Blockchain Absensi Aktif!',
-        'endpoints': {
-            '/chain': 'Melihat seluruh rantai blok',
-            '/mine': 'Melakukan mining blok baru',
-            '/transactions/new': 'Menambah data absen baru (POST)'
-        }
-    }), 200
-
 @app.route('/mine', methods=['GET'])
 def mine():
     last_block = blockchain.last_block
     proof = blockchain.proof_of_work(last_block['proof'])
 
-
+    # Reward miner
     blockchain.new_transaction(
         nama="SYSTEM_REWARD", 
-        keterangan=f"Reward 1 Poin diberikan ke {MINER_ID}"
+        keterangan=f"Reward miner: {MINER_ID}",
+        signature="SYSTEM",
+        public_key="SYSTEM"
     )
-    previous_hash = blockchain.hash(last_block)
-    block = blockchain.new_block(proof, previous_hash)
+    
+    prev_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(proof, prev_hash)
 
-    response = {
-        'message': "Blok Berhasil Di-Mine!",
+    return jsonify({
+        'message': "Mining Selesai",
         'index': block['index'],
         'transactions': block['transactions'],
-        'proof': block['proof'],
-        'hash': block['hash'],
-        'previous_hash': block['previous_hash']
-    }
-    return jsonify(response), 200
+        'hash': block['hash']
+    }), 200
 
-@app.route('/transactions/new', methods=['POST'])
-def new_transaction():
+@app.route('/absen', methods=['POST'])
+def add_attendance():
     values = request.get_json()
-    required = ['nama', 'keterangan']
+    
+    # Cek input
+    required = ['nama', 'keterangan', 'public_key', 'signature']
     if not all(k in values for k in required):
-        return 'Data tidak lengkap', 400
+        return jsonify({'message': 'Data tidak lengkap'}), 400
 
-    signature = values.get('signature', 'NONE')
+    # Verifikasi signature (Filter Keamanan)
+    is_valid = verify_signature(
+        values['public_key'],
+        values['signature'],
+        values['nama'],
+        values['keterangan']
+    )
 
-    index = blockchain.new_transaction(values['nama'], values['keterangan'], signature)
-    return jsonify({'message': f'Absen {values["nama"]} masuk antrian Blok {index}'}), 201
+    if not is_valid:
+        # Tolak kalau data dimanipulasi (Anti-Titip)
+        return jsonify({'message': 'Signature tidak valid! Gagal absen.'}), 400
+
+    # Masuk ke antrian kalau valid
+    index = blockchain.new_transaction(
+        values['nama'], 
+        values['keterangan'], 
+        values['signature'],
+        values['public_key']
+    )
+    
+    return jsonify({'message': f'Absen {values["nama"]} sukses, masuk blok {index}'}), 201
 
 @app.route('/chain', methods=['GET'])
 def full_chain():
@@ -60,5 +69,4 @@ def full_chain():
     }), 200
 
 if __name__ == '__main__':
-  
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
