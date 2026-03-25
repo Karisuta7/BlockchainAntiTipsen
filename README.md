@@ -1,4 +1,4 @@
-*Blockchain Absensi Terverifikasi & Aman*
+**Blockchain Absensi Terverifikasi & Aman**
 
 | Role                          | Name                              | NRP        |
 |-------------------------------|-----------------------------------|------------|
