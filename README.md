@@ -1,4 +1,4 @@
-# Blockchain Absensi Terverifikasi & Aman
+# Blockchain Absen Anti Titip Absen
 
 | Role                          | Name                              | NRP        |
 |-------------------------------|-----------------------------------|------------|
