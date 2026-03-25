@@ -14,7 +14,7 @@
 4. Buka tab `GET /mine.` Klik Send.
 5. Lihat Hasilnya: Di hasil Blok (nomer antrian) ini, daftar transactions pasti akan berisi **DUA data: Data (nama) dan Data SYSTEM_REWARD.**
 
-## Dokumentasi (sebelum menambahkan security):
+## Dokumentasi (Sebelum menambahkan security):
 
 Hasil `GET /mine` pertama 
 <img width="698" height="406" alt="image" src="https://github.com/user-attachments/assets/fe966200-163a-40c5-9f74-fd4f33fa70eb" />
