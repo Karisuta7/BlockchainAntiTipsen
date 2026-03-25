@@ -31,7 +31,7 @@ Hasil `GET /mine` kedua, menambahkan 1 orang-Tywin Lannister
 Hasil `GET /chain` kedua, menambahka 1 orang-Tywin Lannister
 <img width="701" height="532" alt="image" src="https://github.com/user-attachments/assets/326edf55-0166-41f6-a431-93f19bfdbafd" />
 
-## Dokumentasi (Setelah menmbahkan security):
+## Dokumentasi (Setelah menambahkan security):
 
 1. Identitas Digital didapat dengan Menjalankan wallet.py untuk mendapatkan data otentikasi (Tywin Lannister).
 <img width="1241" height="954" alt="image" src="https://github.com/user-attachments/assets/1f033a7c-cf74-4757-a9ff-e80291174191" />
