@@ -1,4 +1,4 @@
-**Blockchain Absensi Terverifikasi & Aman**
+# Blockchain Absensi Terverifikasi & Aman
 
 | Role                          | Name                              | NRP        |
 |-------------------------------|-----------------------------------|------------|
@@ -6,7 +6,7 @@
 | Security & Digital Signature  | Fadlillah Cantika Sari Hermawan   | 5027231042 |
 | Networking & Testing          | Aisyah Rahmasari                  | 50272310   |
 
-**Cara Run:**
+## Cara Run:
 
 1. Jalankan ``python app.py``
 2. Di Postman, buka tab `POST /transactions/new`. Masukkan nama baru. Klik Send.
@@ -14,7 +14,7 @@
 4. Buka tab `GET /mine.` Klik Send.
 5. Lihat Hasilnya: Di hasil Blok (nomer antrian) ini, daftar transactions pasti akan berisi **DUA data: Data (nama) dan Data SYSTEM_REWARD.**
 
-**Dokumentasi (sebelum menambahkan security):**
+## Dokumentasi (sebelum menambahkan security):
 
 Hasil `GET /mine` pertama 
 <img width="698" height="406" alt="image" src="https://github.com/user-attachments/assets/fe966200-163a-40c5-9f74-fd4f33fa70eb" />
@@ -31,7 +31,7 @@ Hasil `GET /mine` kedua, menambahkan 1 orang-Tywin Lannister
 Hasil `GET /chain` kedua, menambahka 1 orang-Tywin Lannister
 <img width="701" height="532" alt="image" src="https://github.com/user-attachments/assets/326edf55-0166-41f6-a431-93f19bfdbafd" />
 
-**Dokumentasi (Setelah menmbahkan security):**
+## Dokumentasi (Setelah menmbahkan security):
 
 1. Identitas Digital didapat dengan Menjalankan wallet.py untuk mendapatkan data otentikasi (Tywin Lannister).
 <img width="1241" height="954" alt="image" src="https://github.com/user-attachments/assets/1f033a7c-cf74-4757-a9ff-e80291174191" />
