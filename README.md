@@ -1,11 +1,67 @@
-# Blockchain Absen Anti Titip Absen
+## Blockchain Absen Anti Titip Absen
+Proyek ini merupakan implementasi sistem desentralisasi berbasis Blockchain untuk mengatasi permasalahan *Titip Absen* di lingkungan akademik. Dengan menggabungkan teknologi Distributed Ledger dan Digital Signature, kami memastikan setiap data kehadiran bersifat *aman, transparan, dan tidak dapat dimanipulasi*.
+
 
 | Role                          | Name                              | NRP        |
 |-------------------------------|-----------------------------------|------------|
 | Backend & Core Blockchain     | Callista Meyra Azizah             | 5027231060 |
 | Security & Digital Signature  | Fadlillah Cantika Sari Hermawan   | 5027231042 |
-| Networking & Testing          | Aisyah Rahmasari                  | 50272310   |
+| Networking & Testing          | Aisyah Rahmasari                  | 5027231072   |
 
+## Fitur Utama Sistem
+
+### Digital Signature (ECDSA)
+Menggunakan algoritma Elliptic Curve Digital Signature Algorithm (ECDSA) dengan kurva SECP256k1 untuk memastikan bahwa hanya pemilik Private Key asli yang dapat melakukan absensi.
+
+### Miner Reward
+Setiap proses mining akan menghasilkan transaksi tambahan berupa **SYSTEM_REWARD** sebagai bentuk insentif bagi node yang melakukan validasi blok.
+
+### Integritas Data (Anti-Tampering)
+Jika data transaksi diubah meskipun hanya satu karakter, maka signature menjadi tidak valid dan transaksi akan ditolak oleh sistem.
+
+---
+
+## Panduan Menjalankan Sistem
+
+### 1. Install Dependency
+```bash
+pip install flask ecdsa requests
+````
+
+---
+
+### 2. Jalankan Server
+
+```bash
+python app.py
+```
+
+Server akan berjalan di:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+### 3. Generate Identitas Digital
+
+```bash
+python wallet.py
+```
+
+Output:
+
+```json
+{
+  "nama": "Tywin Lannister",
+  "keterangan": "Hadir",
+  "public_key": "...",
+  "signature": "..."
+}
+```
+
+---
 ## Cara Run:
 
 1. Jalankan ``python app.py``
@@ -54,5 +110,221 @@ Data Tywin yang tadi sudah lolos verifikasi ke dalam blockchain. Terlihat hasiln
 <img width="783" height="641" alt="image" src="https://github.com/user-attachments/assets/0ecaad7b-bc45-4345-a4ba-efe240b4f7d3" />
 <img width="1092" height="636" alt="image" src="https://github.com/user-attachments/assets/ad9388d9-5ffc-4d01-b859-a66dd9b24404" />
 <img width="1245" height="632" alt="image" src="https://github.com/user-attachments/assets/ddc40ca1-0d59-4829-8cda-4b05bd918686" />
+
+
+---
+
+## Testing Study Cases 
+
+### Persiapan Awal (Prerequisites)
+
+1. Jalankan 3 node pada terminal berbeda:
+
+```bash
+python app.py 5000
+python app.py 5001
+python app.py 5002
+```
+
+2. Generate data mahasiswa:
+
+```bash
+python wallet.py
+```
+
+3. Copy output JSON (contoh: Tywin Lannister)
+![alt text](image.png)
+
+---
+
+## Study Case 1: Networking (Registrasi Node)
+
+**Tujuan:** Menghubungkan node agar dapat saling berkomunikasi
+
+* Method: `POST`
+* URL:
+
+```
+http://127.0.0.1:5000/nodes/register
+```
+
+* Body (JSON):
+
+```json
+{
+  "nodes": [
+    "http://127.0.0.1:5001",
+    "http://127.0.0.1:5002"
+  ]
+}
+```
+
+* Node berhasil terdaftar
+![alt text](image-1.png)
+
+---
+
+## Study Case 2: Penambahan Transaksi Valid 
+
+**Tujuan:** Memastikan absen berhasil jika data valid
+
+* Method: `POST`
+* URL:
+
+```
+http://127.0.0.1:5000/absen
+```
+
+* Body:
+  Gunakan JSON dari `wallet.py`
+
+![alt text](image-2.png)
+
+* **Hasil:**
+- Transaksi berhasil masuk ke antrian blok
+- Response status: 201 Created
+
+---
+
+## Study Case 3: Anti-Titip Absen (Manipulasi Data)
+
+**Tujuan:** Membuktikan sistem menolak manipulasi
+
+**Langkah:**
+
+* Ubah:
+
+```json
+"keterangan": "Hadir"
+```
+
+menjadi:
+
+```json
+"keterangan": "Izin"
+```
+
+* **Jangan ubah signature**
+
+**Ekspektasi:**
+
+* Status: `401 Unauthorized`
+* Message:
+![alt text](image-3.png)
+
+* **Hasil:**
+- Status: 401 Unauthorized
+- Sistem menolak transaksi karena signature tidak sesuai dengan data
+
+---
+
+## Study Case 4: Miner Reward (Insentif Ekonomi)
+
+**Tujuan:** Membuktikan miner mendapat reward
+
+* Method: `GET`
+* URL:
+
+```
+http://127.0.0.1:5000/mine
+```
+
+Lalu cek:
+
+```
+http://127.0.0.1:5000/chain
+```
+
+**Ekspektasi:**
+
+* Terdapat 2 transaksi:
+
+  * Data mahasiswa
+  * `SYSTEM_REWARD` ke `Admin_Node_5000`
+
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
+![alt text](image-7.png)
+![alt text](image-8.png)
+---
+
+## Study Case 5: Konsensus & Sinkronisasi
+
+**Tujuan:** Membuktikan longest chain rule. Proses ini menggunakan prinsip consensus “Longest Chain Rule”, di mana node dengan chain lebih pendek akan mengadopsi chain yang lebih panjang dan valid dari node lain.
+
+### Step 1:
+
+Cek node 5001:
+
+```
+http://127.0.0.1:5001/chain
+```
+![alt text](image-9.png)
+
+### Step 2:
+
+Register node:
+
+```
+POST http://127.0.0.1:5001/nodes/register
+```
+
+```json
+{
+  "nodes": ["http://127.0.0.1:5000"]
+}
+```
+![alt text](image-10.png)
+
+### Step 3:
+
+Resolve:
+
+```
+GET http://127.0.0.1:5001/nodes/resolve
+```
+
+**Ekspektasi:**
+
+```
+Chain diperbarui (Sinkron)
+```
+![alt text](image-11.png)
+![alt text](image-12.png)
+
+---
+
+## Study Case 6: Integritas Blockchain (Hashing)
+
+**Tujuan:** Membuktikan blok saling terhubung. Pada Study Case 6, kami membuktikan integritas rantai (Chain Integrity). Blok ke-2 menyimpan nilai previous_hash yang berasal dari hash Blok ke-1. Hal ini menunjukkan bahwa setiap blok saling terhubung secara kriptografis. Jika data pada Blok ke-1 diubah, maka hash-nya akan berubah dan menyebabkan ketidaksesuaian dengan previous_hash pada Blok ke-2. Akibatnya, seluruh rantai setelahnya menjadi tidak valid. Inilah yang membuat blockchain bersifat Immutable (tidak dapat diubah)
+
+* Method: `GET`
+
+```
+http://127.0.0.1:5000/chain
+```
+
+**Analisis:**
+
+* Bandingkan:
+
+  * `hash` block ke-1
+  * `previous_hash` block ke-2
+
+![alt text](image-13.png)
+
+---
+
+## Checklist Pengujian
+
+- [x] Registrasi Node berhasil
+- [x] Transaksi valid berhasil masuk
+- [x] Manipulasi data ditolak sistem
+- [x] Mining menghasilkan reward
+- [x] Konsensus antar node berjalan
+- [x] Integritas hash terbukti
+
+---
 
 
