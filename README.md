@@ -258,11 +258,7 @@ http://127.0.0.1:5000/chain
   * Data mahasiswa
   * `SYSTEM_REWARD` ke `Admin_Node_5000`
 
-![alt text](image-4.png)
-![alt text](image-5.png)
-![alt text](image-6.png)
-![alt text](image-7.png)
-![alt text](image-8.png)
+![alt text](image-18.png)
 ---
 
 ## Study Case 5: Konsensus & Sinkronisasi
