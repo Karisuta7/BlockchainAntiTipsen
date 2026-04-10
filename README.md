@@ -133,7 +133,7 @@ python wallet.py
 ```
 
 3. Copy output JSON (contoh: Tywin Lannister)
-![alt text](image.png)
+![alt text](image-14.png)
 
 ---
 
@@ -196,12 +196,14 @@ http://127.0.0.1:5000/absen
 
 ```json
 "keterangan": "Hadir"
+"nama": "Tywin Lannister"
 ```
 
 menjadi:
 
 ```json
 "keterangan": "Izin"
+"nama": "Tywinn Lannister"
 ```
 
 * **Jangan ubah signature**
@@ -211,9 +213,11 @@ menjadi:
 * Status: `401 Unauthorized`
 * Message:
 ![alt text](image-3.png)
+![alt text](image-15.png)
 
 * **Hasil:**
 - Status: 401 Unauthorized
+- Status: 403 FORBIDDEN
 - Sistem menolak transaksi karena signature tidak sesuai dengan data
 
 ---
@@ -253,51 +257,24 @@ http://127.0.0.1:5000/chain
 
 **Tujuan:** Membuktikan longest chain rule. Proses ini menggunakan prinsip consensus “Longest Chain Rule”, di mana node dengan chain lebih pendek akan mengadopsi chain yang lebih panjang dan valid dari node lain.
 
-### Step 1:
+### Langkah langkah
 
-Cek node 5001:
+1. Lakukan transaksi dan mining di Node 5000 (Rantai sekarang paling panjang).
+2. Cek Node 5001 dan Node 5002, pastikan keduanya masih di blok awal (Blok 1).
+3. Lakukan sinkronisasi pada Node 5001: GET http://127.0.0.1:5001/nodes/resolve
+![alt text](image-16.png)
+4. Lakukan sinkronisasi pada Node 5002: GET http://127.0.0.1:5002/nodes/resolve
+![alt text](image-17.png)
 
-```
-http://127.0.0.1:5001/chain
-```
-![alt text](image-9.png)
-
-### Step 2:
-
-Register node:
-
-```
-POST http://127.0.0.1:5001/nodes/register
-```
-
-```json
-{
-  "nodes": ["http://127.0.0.1:5000"]
-}
-```
-![alt text](image-10.png)
-
-### Step 3:
-
-Resolve:
-
-```
-GET http://127.0.0.1:5001/nodes/resolve
-```
-
-**Ekspektasi:**
-
-```
-Chain diperbarui (Sinkron)
-```
-![alt text](image-11.png)
-![alt text](image-12.png)
+Kedua node (5001 & 5002) akan mengadopsi chain dari Node 5000. Ini membuktikan bahwa seluruh jaringan tetap memiliki data yang konsisten meskipun transaksi hanya dilakukan di satu node.
 
 ---
 
 ## Study Case 6: Integritas Blockchain (Hashing)
 
 **Tujuan:** Membuktikan blok saling terhubung. Pada Study Case 6, kami membuktikan integritas rantai (Chain Integrity). Blok ke-2 menyimpan nilai previous_hash yang berasal dari hash Blok ke-1. Hal ini menunjukkan bahwa setiap blok saling terhubung secara kriptografis. Jika data pada Blok ke-1 diubah, maka hash-nya akan berubah dan menyebabkan ketidaksesuaian dengan previous_hash pada Blok ke-2. Akibatnya, seluruh rantai setelahnya menjadi tidak valid. Inilah yang membuat blockchain bersifat Immutable (tidak dapat diubah)
+
+Selain keterhubungan antar blok, sistem kami juga menjamin integritas data melalui penyimpanan lokal (blockchain_data_port.json). Jika salah satu server mati, sistem akan memuat ulang data dari file ini dan melakukan verifikasi ulang terhadap seluruh hash sebelum server siap melayani transaksi. Hal ini mencegah manipulasi data saat server dalam kondisi offline
 
 * Method: `GET`
 
@@ -324,6 +301,7 @@ http://127.0.0.1:5000/chain
 - [x] Mining menghasilkan reward
 - [x] Konsensus antar node berjalan
 - [x] Integritas hash terbukti
+- [x] Data Persistence: (Data tidak hilang saat server restart karena tersimpan di JSON)
 
 ---
 

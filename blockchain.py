@@ -102,3 +102,14 @@ class Blockchain:
         guess = f'{last_proof}{proof}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
         return guess_hash[:4] == "0000"
+
+def save_to_disk(self):
+    with open(f'blockchain_{port_id}.json', 'w') as f: # port_id diambil dari app.py
+        json.dump(self.chain, f, indent=4)
+
+def load_from_disk(self):
+    try:
+        with open(f'blockchain_{port_id}.json', 'r') as f:
+            self.chain = json.load(f)
+    except FileNotFoundError:
+        pass 

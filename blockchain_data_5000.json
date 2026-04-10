@@ -1,0 +1,49 @@
+[
+    {
+        "index": 1,
+        "timestamp": 1775803342.055982,
+        "transactions": [],
+        "proof": 100,
+        "previous_hash": "1",
+        "hash": "71a044b2fcf87424c948153ad607b554f89340677fb569c146d5f7898fcbfdf5"
+    },
+    {
+        "index": 2,
+        "timestamp": 1775804333.5424623,
+        "transactions": [
+            {
+                "mahasiswa": "Tywin Lannister",
+                "status": "Hadir",
+                "signature": "56bb309e10769d688c20c6c780d9ca7ad2ac6f787c5c62781bb3ba4db480bcb39bd7d7a3e1a0d8b1c31f6929000a4476b48797fd1746a83ba99484aa114c7fe7",
+                "public_key": "3967fde693851a2d68717a46582c3bbb572d010dbf8a6b09f9a9cd2f1f14ac74959a75e3b3c4173dc1830e3a506e273dc008890949dd4a9c87152767411b7d8b",
+                "timestamp": 1775804270.792974
+            },
+            {
+                "mahasiswa": "SYSTEM_REWARD",
+                "status": "Reward miner: Admin_Node_5000",
+                "signature": "SYSTEM",
+                "public_key": "SYSTEM",
+                "timestamp": 1775804333.5193698
+            }
+        ],
+        "proof": 35293,
+        "previous_hash": "71a044b2fcf87424c948153ad607b554f89340677fb569c146d5f7898fcbfdf5",
+        "hash": "74f00dd43c06a1ba0de36ea8aaeed40a61ecbb3c3c3ab620be801adb4e069578"
+    },
+    {
+        "index": 3,
+        "timestamp": 1775805843.598641,
+        "transactions": [
+            {
+                "mahasiswa": "SYSTEM_REWARD",
+                "status": "Reward miner: Admin_Node_5000",
+                "signature": "SYSTEM",
+                "public_key": "SYSTEM",
+                "timestamp": 1775805843.5513446
+            }
+        ],
+        "proof": 35089,
+        "previous_hash": "74f00dd43c06a1ba0de36ea8aaeed40a61ecbb3c3c3ab620be801adb4e069578",
+        "hash": "24ac615619de4bc8bad5e25a92f3f4eb70f2b134e2f7cc6c7a2529ad808a0ee1"
+    }
+]

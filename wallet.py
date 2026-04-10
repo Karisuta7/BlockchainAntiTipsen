@@ -20,6 +20,22 @@ def generate_data(nama, keterangan):
     }
 
 if __name__ == "__main__":
-    payload = generate_data("Tywin Lannister", "Hadir")
-    print("--- DATA JSON UNTUK POSTMAN ---")
-    print(json.dumps(payload, indent=4))
+    daftar_mahasiswa = [
+        "Aisyah Rahmasari",
+        "Callista Meyra Azizah",
+        "Fadlillah Cantika Sari Hermawan",
+        "Tywin Lannister",
+        "Jon Snow"
+    ]
+
+    student_db = {}
+
+    for nama in daftar_mahasiswa:
+        data = generate_data(nama, "Hadir")
+        student_db[nama] = data["public_key"]
+
+        print(f"\n--- DATA UNTUK {nama} ---")
+        print(json.dumps(data, indent=4))
+
+    print("\n--- STUDENTS.JSON ---")
+    print(json.dumps(student_db, indent=4))
