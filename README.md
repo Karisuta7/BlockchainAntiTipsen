@@ -21,6 +21,18 @@ Jika data transaksi diubah meskipun hanya satu karakter, maka signature menjadi 
 
 ---
 
+### API Endpoints
+
+| Method | Endpoint           | Deskripsi                                                                 | Payload (JSON Body)                         |
+|--------|------------------|--------------------------------------------------------------------------|--------------------------------------------|
+| GET    | /chain           | Mengambil seluruh data rantai blockchain yang tersimpan di node tersebut | -                                          |
+| GET    | /mine            | Memicu proses mining untuk membukukan transaksi menjadi blok baru        | -                                          |
+| POST   | /absen           | Mengirim data absensi + verifikasi digital signature & whitelist         | nama, keterangan, public_key, signature    |
+| POST   | /nodes/register  | Mendaftarkan node lain agar bisa terhubung dalam jaringan                | nodes (List of URL)                        |
+| GET    | /nodes/resolve   | Menjalankan konsensus (longest chain rule) untuk sinkronisasi blockchain | -                                          |
+
+---
+
 ## Panduan Menjalankan Sistem
 
 ### 1. Install Dependency
